@@ -1,0 +1,46 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+<!-- We have here the name of the project -->
+<display-name>Spring MCV demo</display-name>
+<!-- Here we configure the front controller aka DispatcherServlet -->
+<servlet>
+	<!-- You can give any name  -->
+	<servlet-name>dispatcher</servlet-name>
+	<!-- The package of the DispatcherServlet -->
+	<servlet-class> org.springframework.web.servlet.DispatcherServlet </servlet-class>
+	<!-- The init parameters for the Front Controller -->
+	<init-param>
+		<!-- We give the name of the param -> contextConfigLocation  -->
+		<param-name>contextConfigLocation</param-name>
+		<!-- And the location of the config file  -->
+		<!-- The name of the file should be <project-name>-servlet.xml -->
+		<param-value>/WEB-INF/springmvc-servlet.xml</param-value>
+	</init-param>
+	<!-- Specify the the file needs to be loaded on the compilation  -->
+	<load-on-startup>1</load-on-startup>
+</servlet>
+<!-- Here we map the servlet to the application  -->
+<servlet-mapping>
+	<!-- Give the dispatcher servlet name that you already gave -->
+	<servlet-name>dispatcher</servlet-name>
+	<!-- Specify where the dispatcher should start  -->
+	<url-pattern>/</url-pattern>
+	<!-- the / means the root of the application -->
+</servlet-mapping>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+<!-- You can skip these configuration for now -->
+<!-- <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config> -->
+</web-app>
